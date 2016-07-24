@@ -18,7 +18,11 @@ module.exports = function(grunt) {
     protractor: 'grunt-protractor-runner',
     buildcontrol: 'grunt-build-control',
     istanbul_check_coverage: 'grunt-mocha-istanbul',
-    ngconstant: 'grunt-ng-constant'
+    ngconstant: 'grunt-ng-constant',
+    nggettext_extract:'grunt-angular-gettext',
+    nggettext_compile:'grunt-angular-gettext',
+    nggettext_msg_extract:'grunt-angular-gettext-message',
+    nggettext_msg_compile:'grunt-angular-gettext-message'
   });
 
   // Time how long tasks take. Can help when optimizing build times
@@ -28,6 +32,46 @@ module.exports = function(grunt) {
   grunt.initConfig({
     // Project settings
     pkg: grunt.file.readJSON('package.json'),
+    nggettext_extract:{
+      pot:{
+        files:{
+          'client/components/translation/po/origin_template.pot':[
+            'client/index.html',
+            'client/app/**/*.html',
+            'client/components/navbar/*.html'
+          ]
+        }
+      }
+    },
+    nggettext_compile:{
+      all:{
+        options:{
+          module:'sg.translation'
+        },
+        files:{
+          'client/components/translation/sg.translation.js':['client/components/translation/po/*.po']
+        }
+      }
+    },
+    nggettext_msg_extract:{
+      pot:{
+        files:{
+          'client/components/message/po/origin_template.pot':[
+            'client/components/message/message.html'
+          ]
+        }
+      }
+    },
+    nggettext_msg_compile:{
+      all:{
+        options:{
+          module:'sg.message'
+        },
+        files:{
+          'client/components/message/sg.message.js':['client/components/message/po/*.po']
+        }
+      }
+    },
     yeoman: {
       // configurable paths
       client: require('./bower.json').appPath || 'client',
@@ -581,6 +625,8 @@ module.exports = function(grunt) {
           '<%= yeoman.client %>/index.html': [
                [
                  '<%= yeoman.client %>/{app,components}/**/!(*.spec|*.mock).js',
+                 '!<%= yeoman.client %>/components/translation/*.js',
+                 '!<%= yeoman.clinent %>/components/message/*.js',
                  '!{.tmp,<%= yeoman.client %>}/app/app.{js,ts}'
                ]
             ]

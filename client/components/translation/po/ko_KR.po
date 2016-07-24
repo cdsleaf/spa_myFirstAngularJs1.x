@@ -1,0 +1,29 @@
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Project-Id-Version: \n"
+"POT-Creation-Date: \n"
+"PO-Revision-Date: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"X-Generator: Poedit 1.8.8\n"
+"Last-Translator: \n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"Language: ko_KR\n"
+
+#: client/app/main/main.html:24
+msgid "Add New"
+msgstr "신규추가"
+
+#: client/app/main/main.html:22
+msgid "Add a new thing here."
+msgstr "여기에 새로 추가하세요."
+
+#: client/app/main/main.html:12
+msgid "Features:"
+msgstr "기능"
+
+#: client/app/main/main.html:20
+msgid "Syncs in realtime across clients"
+msgstr "클라이언트간 실시간 업데이트 수행 "
