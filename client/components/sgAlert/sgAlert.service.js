@@ -1,27 +1,50 @@
+(function(){
+
 'use strict';
 
-angular.module('spaPjtApp.sgAlert')
+angular.module('spaPjtApp')
   .service('sgAlert', sgAlertService);
 
-  function sgAlertService(gettextCatalog) {
+  function sgAlertService(gettextCatalog, $timeout) {
     this.success = function(msg) {
-      console.log(getMessage(msg));
+      alerting('success',msg);
     };
 
     this.information = function(msg) {
-      console.log(getMessage(msg));
+      alerting('information',msg);
     };
 
     this.warning = function(msg) {
-      console.log(getMessage(msg));
+      alerting('warning',msg);
     };
 
     this.error = function(msg, err) {
-      console.log(getMessage(msg));
+      alerting('error',msg, err);
     };
 
-    //설정된 언어의 메시지를 반환
-    function getMessage(msg){
-      return gettextCatalog.getString(msg);
+    function alerting(type, msg, err){
+      msg = gettextCatalog.getString(msg);
+
+      var nt = noty({
+        text: msg
+        ,type: type
+        ,layout: 'top'
+      });
+
+      if(nt){
+        $timeout(function () {
+          nt.close();
+        }, 2000);
+      }
+
+      if(err){
+        if(bowser.chrome){
+          console.table([{'message':msg, 'error':err}]);
+        }else{
+          console.log([{'message':msg, 'error':err}]);
+        }
+      }
     }
   }
+
+})();
